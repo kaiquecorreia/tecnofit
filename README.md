@@ -17,3 +17,7 @@ caso necessário rodar o comando na pasta raiz, "composer update" para atualizar
 Acessar pasta frontend, rodar o comando yarn ou npm install para atualizar as dependencias
 
 Executar o comando yarn start e aguardar uma página web abrir.
+
+Usuário e senha padrão para acessar o sistema
+usuário: kaique
+senha: 123456

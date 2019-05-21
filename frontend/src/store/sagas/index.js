@@ -5,10 +5,12 @@ import { UserTypes } from '../ducks/user';
 import { ProductTypes } from '../ducks/product';
 import { OrderTypes } from '../ducks/order';
 
-import { getSignin } from './auth';
+import { getSignin, getSignOut } from './auth';
+
 import {
   userCreate, userList, userDelete, userSelected, userUpdate,
 } from './user';
+
 import {
   productCreate,
   productList,
@@ -16,6 +18,7 @@ import {
   productSelected,
   productUpdate,
 } from './product';
+
 import {
   orderCreate, orderList, orderDelete, orderSelected,
 } from './order';
@@ -23,6 +26,7 @@ import {
 export default function* rootSaga() {
   yield all([
     takeLatest(AuthTypes.SIGNIN_REQUEST, getSignin),
+    takeLatest(AuthTypes.SIGN_OUT, getSignOut),
     takeLatest(UserTypes.USER_CREATE_REQUEST, userCreate),
     takeLatest(UserTypes.USER_UPDATE_REQUEST, userUpdate),
     takeLatest(UserTypes.USER_LIST_REQUEST, userList),

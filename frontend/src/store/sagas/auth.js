@@ -15,7 +15,7 @@ export function* getSignin({ username, password }) {
 
     yield put(
       toastrActions.add({
-        type: 'success',
+        type: 'info',
         title: 'Sucesso!',
         message: 'Seja Bem-vindo!',
       }),
@@ -25,6 +25,30 @@ export function* getSignin({ username, password }) {
       toastrActions.add({
         type: 'error',
         title: 'Falha na autenticação',
+        message: error.response.data.message,
+      }),
+    );
+  }
+}
+
+export function* getSignOut() {
+  yield put(toastrActions.clean());
+  try {
+    localStorage.clear();
+    yield put(push('/'));
+
+    yield put(
+      toastrActions.add({
+        type: 'info',
+        title: 'Deslogado!',
+        message: 'Desconectado com sucesso!',
+      }),
+    );
+  } catch (error) {
+    yield put(
+      toastrActions.add({
+        type: 'error',
+        title: 'Falha ao sair',
         message: error.response.data.message,
       }),
     );

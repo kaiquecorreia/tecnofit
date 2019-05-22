@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import CurrencyInput from 'react-currency-input';
+import formatCurrency from 'format-currency';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -6,9 +8,7 @@ import { bindActionCreators } from 'redux';
 
 import ProductsCreators from '../../store/ducks/product';
 import Header from '../../components/Header';
-import {
-  Container, Form, Table, TableRows, ExcludeButton, EditButton, FormLabel,
-} from './styles';
+import { Container, Form, Table, TableRows, ExcludeButton, EditButton, FormLabel } from './styles';
 
 class Products extends Component {
   static propTypes = {
@@ -21,12 +21,12 @@ class Products extends Component {
     productListRequest();
   }
 
-  selectedProduct = async (productId) => {
+  selectedProduct = async productId => {
     const { productSelectedRequest } = this.props;
     productSelectedRequest(productId);
   };
 
-  handleProduct = (event) => {
+  handleProduct = event => {
     event.preventDefault();
     const { product, productListRequest } = this.props;
     if (!product.id) {
@@ -49,7 +49,7 @@ class Products extends Component {
       productHandleSku,
       productHandleStock,
     } = this.props;
-
+    const opts = { format: '%s%v', symbol: 'R$ ', locale: 'de-DE' };
     return (
       <Fragment>
         <Header />
@@ -81,13 +81,12 @@ class Products extends Component {
               </label>
               <label htmlFor="price">
                 Preço
-                <input
-                  type="text"
+                <CurrencyInput
                   id="price"
                   value={product.price}
-                  placeholder="Preço"
-                  onChange={e => productHandlePrice(e.target.value)}
-                  required
+                  decimalSeparator=","
+                  thousandSeparator="."
+                  onChangeEvent={(e, m, floatvalue) => productHandlePrice(floatvalue)}
                 />
               </label>
               <label htmlFor="sku">
@@ -133,28 +132,28 @@ class Products extends Component {
             <tbody>
               {products
                 ? products.map(product => (
-                  <TableRows key={product.id}>
-                    <td>{product.id}</td>
-                    <td>{product.name}</td>
-                    <td>{product.description}</td>
-                    <td>{product.price}</td>
-                    <td>{product.sku}</td>
-                    <td>{product.stock}</td>
-                    <td>
-                      <EditButton type="button" onClick={() => this.selectedProduct(product.id)}>
+                    <TableRows key={product.id}>
+                      <td>{product.id}</td>
+                      <td>{product.name}</td>
+                      <td>{product.description}</td>
+                      <td>{formatCurrency(product.price, opts)}</td>
+                      <td>{product.sku}</td>
+                      <td>{product.stock}</td>
+                      <td>
+                        <EditButton type="button" onClick={() => this.selectedProduct(product.id)}>
                           Editar
-                      </EditButton>
-                      <ExcludeButton
-                        type="button"
-                        onClick={() => {
-                          productDeleteRequest(product.id);
-                        }}
-                      >
+                        </EditButton>
+                        <ExcludeButton
+                          type="button"
+                          onClick={() => {
+                            productDeleteRequest(product.id);
+                          }}
+                        >
                           Excluir
-                      </ExcludeButton>
-                    </td>
-                  </TableRows>
-                ))
+                        </ExcludeButton>
+                      </td>
+                    </TableRows>
+                  ))
                 : 'Produto não encontrado!'}
             </tbody>
           </Table>

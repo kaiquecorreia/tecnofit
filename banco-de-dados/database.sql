@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.3.15-MariaDB-1:10.3.15+maria~bionic)
 # Base de Dados: tecnofit
-# Tempo de Geração: 2019-05-21 20:44:03 +0000
+# Tempo de Geração: 2019-05-22 15:40:18 +0000
 # ************************************************************
 
 
@@ -37,15 +37,6 @@ CREATE TABLE `order_product` (
   CONSTRAINT `order_product_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `order_product` WRITE;
-/*!40000 ALTER TABLE `order_product` DISABLE KEYS */;
-
-INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `amount`)
-VALUES
-	(32,1,1,50);
-
-/*!40000 ALTER TABLE `order_product` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela orders
@@ -66,15 +57,6 @@ CREATE TABLE `orders` (
   CONSTRAINT `user_order_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-
-INSERT INTO `orders` (`id`, `user_id`, `description`, `status`, `total`, `created_at`, `updated_at`)
-VALUES
-	(1,1,'Reposição de sabonetes','AGUARDANDO',1000,'2019-05-21 22:40:40','2019-05-21 22:40:40');
-
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela products
@@ -99,7 +81,8 @@ LOCK TABLES `products` WRITE;
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `sku`, `stock`, `created_at`, `updated_at`)
 VALUES
-	(1,'Sabonete','Limpeza',20,'SKU123',20,'2019-05-21 22:40:14','2019-05-21 22:40:14');
+	(1,'Sabonete','Limpeza',20,'SKU123',20,'2019-05-21 22:40:14','2019-05-21 22:40:14'),
+	(2,'Ração de Peixe','Alimento Animal',500,'SKU987',100,'2019-05-21 22:40:00','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;

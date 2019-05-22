@@ -41,11 +41,13 @@ abstract class ApiTestCase extends TestCase
         return json_decode((string) $this->response->getBody(), true);
     }
 
-    /** {@inheritdoc} */
+     /** {@inheritdoc} */
     protected function setUp()
     {
+
       $this->app = (new App())->get();
     }
+
 
     /** {@inheritdoc} */
     protected function tearDown()
@@ -53,6 +55,11 @@ abstract class ApiTestCase extends TestCase
         $this->app = null;
         $this->response = null;
     }
+    public static function tearDownAfterClass()
+    {
+        unset($_SESSION['model_id']);
+    }
+
 
     private function prepareRequest($method, $url, array $requestParameters)
     {

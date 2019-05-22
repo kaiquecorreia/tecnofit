@@ -9,16 +9,14 @@ import AuthCreators from '../../store/ducks/auth';
 import { Container } from './styles';
 
 class Header extends Component {
-
   componentDidMount() {}
 
   signOut = async () => {
-    const {signOut} = this.props;
+    const { signOut } = this.props;
     signOut();
   };
 
   render() {
-    localStorage.clear();
     return (
       <Container>
         <ul>

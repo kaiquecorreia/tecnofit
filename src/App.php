@@ -6,33 +6,33 @@ class App {
   private $app;
 
   public function __construct(){
+    require __DIR__ . ('/env.php');
     $app = new \Slim\App([
       'debug'=> true,
       'settings' => [
           'displayErrorDetails' => true,
           'addContentLengthHeader' => false,
           'db'=>[
-            'driver'=> 'mysql',
-            'host' => '172.30.30.104',
-            'database' => 'tecnofit',
-            'username' => 'root',
-            'password' => 'root',
-            'charset' => 'utf8',
-            'collation' => 'utf8_general_ci',
-            'prefix' => '',
+            'driver'=> DB_DRIVER,
+            'host' => DB_HOST,
+            'database' => DB_NAME,
+            'username' => DB_USERNAME,
+            'password' => DB_PASSWORD,
+            'charset' => DB_CHARSET,
+            'collation' => DB_COLLATION,
+            'prefix' => DB_PREFIX,
           ]
       ],
 
   ]);
   $app->add(new CorsMiddleware([
-    "origin" => ["http://localhost:3000"],
+    "origin" => [CORS_ORIGIN],
     "methods" => ["GET", "POST","PUT", "PATCH", "DELETE", "OPTIONS"],
     "headers.allow" => ["Origin", "Content-Type", "Authorization", "Accept", "ignoreLoadingBar", "X-Requested-With", "Access-Control-Allow-Origin"],
     "headers.expose" => [],
     "credentials" => true,
     "cache" => 0,
 ]));;
-
 //   $app->add(new Tuupola\Middleware\CorsMiddleware([
 //     "origin" => ["http://dominio.com.br"],
 //     "methods" => ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
@@ -41,8 +41,6 @@ class App {
 //     "credentials" => true,
 //     "cache" => 0,
 // ]));
-
-
   $container = $app->getContainer();
 
   $capsule = new \Illuminate\Database\Capsule\Manager;

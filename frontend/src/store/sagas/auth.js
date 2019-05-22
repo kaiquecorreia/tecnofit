@@ -11,7 +11,7 @@ export function* getSignin({ username, password }) {
     const response = yield call(api.post, '/signIn', { username, password });
     localStorage.setItem('@User:id', response.data.id);
     yield put(AuthActions.signinSuccess(response.data));
-    yield put(push('/orders'));
+    yield put(push('/dashboard'));
 
     yield put(
       toastrActions.add({

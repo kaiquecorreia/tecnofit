@@ -64,7 +64,7 @@ Executar o comando npm start dentro da pasta /frontend e aguardar uma página we
 
 Para realizar os testes, na raiz do projeto execute o comando:
 ```
-.\vendor\bin\phpunit
+.\vendor\bin\phpunit para windows ./endor/bin/phpunit para mac ou linux
 ```
 Os testes serão realizados
 

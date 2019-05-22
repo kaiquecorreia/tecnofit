@@ -6,7 +6,7 @@ class App {
   private $app;
 
   public function __construct(){
-    require __DIR__ . ('/env.php');
+    require_once __DIR__ . ('/env.php');
     $app = new \Slim\App([
       'debug'=> true,
       'settings' => [
